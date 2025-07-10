@@ -1,8 +1,14 @@
+import { getConfig } from "../config";
 import { sendEvent } from "../transport";
 import { Context, EventPayload } from "../types";
 import { getOrCreateSessionId, getOrCreateVisitorId } from "../utils";
 
-export function track(eventType: string, properties: Record<string, any> = {}): void {
+export function track(
+  eventType: string,
+  properties: Record<string, any> = {}
+): void {
+  const config = getConfig();
+
   const visitorId = getOrCreateVisitorId();
   const sessionId = getOrCreateSessionId();
 
@@ -11,7 +17,7 @@ export function track(eventType: string, properties: Record<string, any> = {}): 
     sessionId,
     userAgent: navigator.userAgent,
     language: navigator.language,
-    screenSize: `${window.screen.width}x${window.screen.height}`,
+    screenSize: `${window.innerWidth}x${window.innerHeight}`,
     pageUrl: window.location.href,
     referrer: document.referrer,
   };
@@ -22,6 +28,12 @@ export function track(eventType: string, properties: Record<string, any> = {}): 
     context,
     timestamp: new Date().toISOString(),
   };
-  console.log("Tracking event:", event);
-  //sendEvent(event);
+  if (config?.debug) {
+    console.log("Tracking event:", event);
+  }
+  try {
+    sendEvent(event);
+  } catch (error) {
+    if (config?.debug) console.error("Failed to send event:", error);
+  }
 }

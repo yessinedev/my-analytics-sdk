@@ -5,7 +5,7 @@ export interface Context{
   language: string;
   screenSize: string;
   pageUrl: string;
-  referrer: string;
+  referrer?: string;
 };
 
 export interface EventPayload  {

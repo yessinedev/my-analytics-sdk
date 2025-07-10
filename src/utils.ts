@@ -1,15 +1,13 @@
+
 function generateUniqueId() {
-  // Generate a unique ID using a combination of timestamp and random number
   const timestamp = Date.now().toString(36);
   const randomPart = Math.random().toString(36).substr(2, 5);
   return timestamp + randomPart;
 }
 
 export function getOrCreateVisitorId() {
-  // Check if visitorId exists in localStorage
   let visitorId = localStorage.getItem("visitorId");
 
-  // If visitorId doesn't exist, create a new one
   if (!visitorId) {
     visitorId = generateUniqueId();
     localStorage.setItem("visitorId", visitorId);
@@ -33,3 +31,4 @@ export function getOrCreateSessionId() {
   }
   return sessionId;
 }
+
