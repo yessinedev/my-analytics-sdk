@@ -1,6 +1,4 @@
-Here is a ready-to-use `README.md` file for your project:
 
-````markdown
 # My Analytics SDK
 
 A lightweight, framework-agnostic JavaScript analytics SDK to track user interactions on websites without relying on payment or third-party integrations.
