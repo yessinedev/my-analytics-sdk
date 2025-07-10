@@ -27,6 +27,8 @@ export interface AnalyticsConfig  {
   autoTrackPageViews?: boolean;
   autoTrackClicks?: boolean;
   autoTrackForms?: boolean;
+  autoTrackScroll?: boolean;
+  
   [key: string]: any;
 };
 

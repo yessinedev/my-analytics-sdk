@@ -4,6 +4,7 @@ import { initClickTracking } from "./autotrack/clicks";
 import { trackPageView } from "./autotrack/pageview";
 import { AnalyticsConfig } from "./types";
 import { initFormEngagementTracking, initFormsTracking } from "./autotrack/forms";
+import { initScrollTracking } from "./autotrack/scroll";
 
 function init(options: AnalyticsConfig): void {
   setConfig(options);
@@ -17,6 +18,9 @@ function init(options: AnalyticsConfig): void {
   if(options.autoTrackForms){
     initFormsTracking();
     initFormEngagementTracking();
+  }
+  if(options.autoTrackScroll) {
+    initScrollTracking();
   }
 }
 
