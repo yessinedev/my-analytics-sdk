@@ -15,6 +15,10 @@
       <textarea name="message" placeholder="Message"></textarea>
       <button type="submit" id="submit-btn">Send</button>
     </form>
+    <div>
+      <p>Click the button or submit the form to trigger analytics events.</p>
+      <p>Open the console to see the tracking events.</p>
+    </div>
 
     <script>
       Analytics.init({
@@ -22,6 +26,8 @@
         autoTrackForms: true,
         autoTrackPageViews: true,
         autoTrackClicks: true,
+        autoTrackScroll: true,
+        autoTrackSession: true,
       });
     </script>
   </body>

@@ -32,7 +32,9 @@ export function track(
     console.log("Tracking event:", event);
   }
   try {
-    sendEvent(event);
+    console.log("Tracking event:", event);
+
+    //sendEvent(event);
   } catch (error) {
     if (config?.debug) console.error("Failed to send event:", error);
   }

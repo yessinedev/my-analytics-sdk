@@ -16,27 +16,32 @@ let session: SessionInfo | null = null;
 let active = true;
 let inactivityTimer: ReturnType<typeof setTimeout> | null = null;
 let heartbeatTimer: ReturnType<typeof setTimeout> | null = null;
-
-
+let isNewSession = false;
 
 function loadSession(): SessionInfo {
   const raw = localStorage.getItem(SESSION_KEY);
   let stored: SessionInfo | null = null;
+
   if (raw) {
     try {
       const data = JSON.parse(raw);
       if (data && typeof data.sessionId === "string") {
         stored = data;
       }
-    } catch {}
+    } catch {
+      // ignore parse errors
+    }
   }
-  // Use util to get a valid sessionId (preserves if not expired)
+
   const validSessionId = getOrCreateSessionId();
+
   if (stored && stored.sessionId === validSessionId) {
-    // Continue previous session
+    isNewSession = false; // Continuing existing session
     return stored;
   }
+
   // New session
+  isNewSession = true;
   return {
     sessionId: validSessionId,
     activeTime: 0,
@@ -72,7 +77,6 @@ function onUserActive() {
 function onUserInactive() {
   if (active) {
     active = false;
-    // Update activeTime to capture all active periods
     if (session) {
       const now = Date.now();
       session.activeTime += now - session.lastActive;
@@ -141,7 +145,15 @@ export function startSessionTracking() {
   startInactivityTimer();
   startHeartbeat();
 
-  // Listeners
+  // Track session_start only if new session
+  if (isNewSession && session) {
+    track("session_start", {
+      sessionId: session.sessionId,
+      startedAt: session.startedAt,
+    });
+  }
+
+  // Setup listeners
   window.addEventListener("mousemove", onUserActive);
   window.addEventListener("keydown", onUserActive);
   window.addEventListener("scroll", onUserActive);
@@ -150,7 +162,7 @@ export function startSessionTracking() {
   window.addEventListener("beforeunload", onUnload);
   window.addEventListener("pagehide", onUnload);
 
-  // Cleanup function for SPA
+  // Cleanup function for SPA scenarios
   return function cleanupSessionTracking() {
     window.removeEventListener("mousemove", onUserActive);
     window.removeEventListener("keydown", onUserActive);
