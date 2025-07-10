@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SDK Demo</title>
+    <script src="./dist/analytics.js"></script>
+  </head>
+  <body>
+    <h1>Test Page</h1>
+
+    <button id="click-me" class="btn primary">Click Me</button>
+
+    <form id="contact-form" method="POST" action="#">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <textarea name="message" placeholder="Message"></textarea>
+      <button type="submit" id="submit-btn">Send</button>
+    </form>
+
+    <script>
+      Analytics.init({
+        clientId: "abc123",
+        autoTrackForms: true,
+        autoTrackPageViews: true,
+        autoTrackClicks: true,
+      });
+    </script>
+  </body>
+</html>
