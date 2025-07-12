@@ -21,14 +21,32 @@
     </div>
 
     <script>
-      Analytics.init({
-        clientId: "abc123",
-        autoTrackForms: true,
-        autoTrackPageViews: true,
-        autoTrackClicks: true,
-        autoTrackScroll: true,
-        autoTrackSession: true,
-      });
+      if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+      ) {
+        Analytics.init({
+          clientId: "abc123",
+          apiEndpoint: "http://localhost:3000/api/events",
+          autoTrackForms: true,
+          autoTrackPageViews: true,
+          autoTrackClicks: true,
+          autoTrackScroll: true,
+          autoTrackSession: true,
+        });
+      }else {
+        document.addEventListener("DOMContentLoaded", () => {
+          Analytics.init({
+            clientId: "abc123",
+            apiEndpoint: "http://localhost:3000/api/events",
+            autoTrackForms: true,
+            autoTrackPageViews: true,
+            autoTrackClicks: true,
+            autoTrackScroll: true,
+            autoTrackSession: true,
+          });
+        });
+      }
     </script>
   </body>
 </html>

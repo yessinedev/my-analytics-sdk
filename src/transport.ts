@@ -51,7 +51,7 @@ async function flushQueue() {
 
   const batchPayload = readyEvents.map((e) => e.payload);
   const config = getConfig();
-  const endpoint = config.apiEndpoint || "https://api.youranalytics.com/events";
+  const endpoint = config.apiEndpoint || "http://localhost:3000/api/events";
   try {
     await fetch(endpoint, {
       method: "POST",
@@ -113,7 +113,7 @@ function flushQueueSync() {
   if (readyEvents.length === 0) return;
   const batchPayload = readyEvents.map((e) => e.payload);
   const config = getConfig();
-  const endpoint = config.apiEndpoint || "https://api.youranalytics.com/events";
+  const endpoint = config.apiEndpoint || "http://localhost:3000/api/events";
   try {
     // Use sendBeacon for synchronous, reliable delivery
     if (navigator.sendBeacon) {

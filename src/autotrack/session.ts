@@ -1,5 +1,5 @@
 import { track } from "../index";
-import { getOrCreateSessionId } from "../utils";
+import { getOrCreateSessionId } from "../lib/utils";
 
 const SESSION_KEY = "analytics_session_info_v1";
 const INACTIVITY_TIMEOUT = 30000; // 30 seconds

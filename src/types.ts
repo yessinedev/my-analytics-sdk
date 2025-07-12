@@ -1,6 +1,4 @@
 export interface Context{
-  visitorId: string;
-  sessionId: string;
   userAgent: string;
   language: string;
   screenSize: string;
@@ -9,6 +7,8 @@ export interface Context{
 };
 
 export interface EventPayload  {
+  visitorId: string;
+  sessionId: string;
   eventType: string;
   properties: Record<string, any>;
   context: Context;
